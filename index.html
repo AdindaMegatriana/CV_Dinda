@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV - Adinda Megatriana</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ff347b1b; /* Ganti dengan warna pink */
+        color: #333;
+      }
+      .container {
+        display: flex;
+        max-width: 1000px;
+        margin: 40px auto;
+        background: linear-gradient(145deg, #ffffff, #ececec);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        overflow: hidden;
+      }
+      .left-section {
+        background-color: #f8bbd0; /* Ganti dengan warna pink */
+        color: #a40505;
+        width: 35%;
+        padding: 30px 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .left-section img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 4px solid #fff;
+      }
+      .left-section h1 {
+        font-size: 1.8rem;
+        margin: 10px 0;
+      }
+      .left-section h2 {
+        font-size: 1.2rem;
+        margin: 5px 0;
+        color: #c5cae9;
+      }
+      .left-section .contact,
+      .left-section .skills {
+        margin-top: 30px;
+        text-align: left;
+        width: 100%;
+      }
+      .left-section h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: #d32f2f; /* Warna merah gelap agar lebih kontras dengan background pink */
+        border-bottom: 2px solid #d32f2f; /* Warna border yang lebih serasi */
+        padding-bottom: 5px;
+      }
+      .left-section ul {
+        list-style: none;
+        padding: 0;
+      }
+      .left-section ul li {
+        margin: 8px 0;
+        font-size: 1rem;
+      }
+      .right-section {
+        padding: 40px 30px;
+        width: 65%;
+      }
+      .right-section h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        border-bottom: 3px solid #d32f2f; /* Gunakan warna merah gelap agar lebih serasi dengan tema pink */
+        padding-bottom: 5px;
+        color: #d32f2f; /* Gunakan warna merah gelap untuk teks agar lebih serasi dengan border */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Menambahkan bayangan agar teks lebih menonjol */
+      }
+
+      .right-section .section {
+        margin-bottom: 30px;
+      }
+      .right-section p {
+        line-height: 1.8;
+        font-size: 1.1rem;
+      }
+      .right-section .section:hover {
+        background: #f4f6f8;
+        transition: background-color 0.3s ease;
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.5s;
+      }
+
+      .modal-content h2 {
+        color: #3949ab;
+        margin-bottom: 10px;
+      }
+      .modal-content p {
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+      }
+      .close-btn {
+        background: #3949ab;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .close-btn:hover {
+        background: #5c6bc0;
+      }
+
+      /* For image zoom modal */
+      .zoomable-image {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+      .zoomable-image:hover {
+        transform: scale(1.1);
+      }
+
+      .li-social a:hover {
+        transform: scale(1.1); /* Memperbesar ikon dan teks secara bersamaan */
+        transition: transform 0.3s ease; /* Efek transisi halus */
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+      }
+
+      .right-section .zoomable-image {
+        max-width: 100%;
+        height: auto;
+        margin: 10px;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+        gap: 20px; /* Jarak antar gambar */
+      }
+
+      .portfolio-grid img {
+        width: 100%;
+        height: 200px; /* Atur tinggi gambar */
+        object-fit: cover; /* Memastikan gambar tetap proporsional dan terpotong jika perlu */
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .skills {
+        margin-top: 20px;
+      }
+
+      .skills h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .experience-list {
+        list-style-type: none; /* Menghilangkan bullet point */
+        padding-left: 0; /* Menghilangkan padding kiri default */
+      }
+
+      .experience-list li {
+        font-size: 1.2rem; /* Ukuran font untuk setiap item */
+        margin-bottom: 8px; /* Memberi jarak antar item */
+        line-height: 1.6; /* Memberi jarak antar baris teks dalam item */
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column; /* Ubah layout menjadi kolom */
+        }
+
+        .left-section,
+        .right-section {
+          width: 100%; /* Pastikan kedua bagian ini lebar 100% pada layar kecil */
+          padding: 20px; /* Kurangi padding agar tidak terlalu lebar */
+        }
+
+        .left-section img {
+          width: 120px; /* Gambar lebih kecil di layar kecil */
+          height: 120px;
+        }
+
+        .portfolio-grid {
+          grid-template-columns: 1fr; /* 1 kolom di layar kecil */
+        }
+
+        .right-section .zoomable-image {
+          max-width: 100%;
+          height: auto;
+          margin: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .left-section h1 {
+          font-size: 1.5rem; /* Menyesuaikan ukuran font */
+        }
+
+        .left-section h2 {
+          font-size: 1rem;
+        }
+
+        .right-section h2 {
+          font-size: 1.5rem; /* Ukuran heading yang lebih kecil */
+        }
+
+        .right-section p {
+          font-size: 1rem; /* Mengurangi ukuran font */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left Section -->
+      <div class="left-section">
+        <img
+          src="https://media.licdn.com/dms/image/v2/D4E03AQH9WvWdeoqslQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1691648439157?e=1743033600&v=beta&t=DkfICFE6RSc9epj0i4GC_bwoct9bTeCbxAmPGNQRxxE"
+          alt="Profile Picture"
+        />
+        <h1>Adinda Megatriana</h1>
+        <h2
+          style="
+            color: #d32f2f; /* Warna merah gelap agar lebih kontras dengan background pink */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Menambahkan bayangan untuk teks agar lebih menonjol */
+          "
+        >
+          S1 Teknik Pertanian dan Biosistem
+        </h2>
+
+        <div class="contact">
+          <h3>Kontak</h3>
+          <ul>
+            <li>
+              🏠 Komplek BSD 1 Blok A/3 RT/RW 02/05, Kelurahan Pasir Nan Tigo,
+              Kec. Koto Tangah, Kota Padang, Sumatera Barat
+            </li>
+            <li class="li-social" style="margin-bottom: 10px">
+              <a href="https://wa.me/083801161711" target="_blank">
+                <i
+                  class="bi bi-whatsapp"
+                  style="font-size: 2rem; margin-right: 10px"
+                ></i
+                >+6283801161711
+              </a>
+            </li>
+            <li class="li-social" style="margin-bottom: 10px">
+              <a
+                href="https://www.linkedin.com/in/adinda-megatriana-a175a8287/?originalSubdomain=id"
+                target="_blank"
+                style="
+                  display: flex;
+                  align-items: center;
+                  text-decoration: none;
+                  color: black;
+                  transition: transform 0.3s ease;
+                "
+              >
+                <i
+                  class="bi bi-linkedin"
+                  style="font-size: 2rem; margin-right: 10px"
+                ></i>
+                <span>Adinda Megatriana</span>
+              </a>
+            </li>
+            <li class="li-social" style="margin-bottom: 10px">
+              <a
+                href="https://www.instagram.com/adndamga._?utm_source=qr&igsh=ZHc5OTJqN3BsMGI4"
+                target="_blank"
+                style="
+                  display: flex;
+                  align-items: center;
+                  text-decoration: none;
+                  color: black;
+                  transition: transform 0.3s ease;
+                "
+              >
+                <i
+                  class="bi bi-instagram"
+                  style="font-size: 2rem; margin-right: 10px"
+                ></i>
+                <span>adndamga._</span>
+              </a>
+            </li>
+            <li class="li-social">
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=dindamega750@gmail.com&su=Subject%20Here&body=Hello%20Adinda,%0A%0A"
+                target="_blank"
+              >
+                <i
+                  class="bi bi-envelope"
+                  style="font-size: 2rem; margin-right: 10px"
+                ></i>
+                <span>dindamega750@gmail.com</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="skills">
+          <h3>Keahlian</h3>
+          <ul class="experience-list">
+            <li>Mampu bekerja dalam tim</li>
+            <li>Kepemimpinan</li>
+            <li>Pekerja Keras</li>
+            <li>Mampu beradaptasi</li>
+            <li>Manajemen waktu</li>
+          </ul>
+        </div>
+
+        <div class="skills">
+          <h3>Hobby</h3>
+          <ul class="experience-list">
+            <li>Mendengarkan Musik</li>
+            <li>Traveling</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right Section -->
+      <div class="right-section">
+        <div class="section">
+          <h2>Tentang Saya</h2>
+          <p style="text-align: justify">
+            Saya mahasiswi Universitas Andalas tahun 2023, Fakultas Teknologi
+            Pertanian, Jurusan Teknik Pertanian dan Biosistem. Saya tertarik
+            pada alat dan mesin pertanian, serta teknologi pertanian ramah
+            lingkungan yang berdampak positif bagi masyarakat dan alam. Saya
+            juga tertarik pada solusi teknologi untuk tantangan pertanian
+            seperti perubahan iklim dan keterbatasan lahan. Di luar akademik,
+            saya aktif dalam kegiatan sosial dan organisasi kemahasiswaan untuk
+            mengembangkan soft skills, kepemimpinan, dan kerja sama tim, dengan
+            tujuan berkontribusi pada pertanian berbasis teknologi dan
+            berkelanjutan.
+          </p>
+        </div>
+
+        <div class="section">
+          <h2>Pendidikan</h2>
+          <p><strong>SMAN 7 PADANG</strong> (2020 - 2023) - Jurusan IPA</p>
+          <p>
+            <strong>Universitas Andalas</strong> (2023 - Sekarang) - S1 Teknik
+            Pertanian dan Biosistem
+          </p>
+        </div>
+
+        <div class="section">
+          <h2>Pengalaman</h2>
+          <p><strong>Basketball SMAN 7 Padang</strong> (2020-2021)</p>
+          <p>
+            Berpartisipasi dalam tim basket sekolah dan mengikuti berbagai
+            kompetisi antar sekolah.
+          </p>
+
+          <p>
+            <strong>Pakus Rajawali / Paskibra SMAN 7 Padang</strong> (2020-2023)
+          </p>
+          <p>
+            Anggota Paskibra yang terlibat dalam upacara dan kegiatan sekolah
+            lainnya.
+          </p>
+
+          <p>
+            <strong>Ketua Forum Anak Kelurahan Pasia Nan Tigo</strong>
+            (2021-2023)
+          </p>
+          <p>
+            Memimpin forum anak di kelurahan dan berkoordinasi dengan berbagai
+            pihak untuk pengembangan kegiatan anak.
+          </p>
+
+          <p><strong>Forum Anak Kecamatan Koto Tangah</strong> (2022-2023)</p>
+          <p>
+            Anggota aktif yang berperan dalam berbagai program kegiatan anak di
+            tingkat kecamatan.
+          </p>
+
+          <p><strong>Uda Uni SMAN 7</strong> (2022-2023)</p>
+          <p>
+            Peran sebagai Duta SMAN 7, berpartisipasi dalam kegiatan sosial dan
+            budaya di sekolah.
+          </p>
+
+          <p>
+            <strong>BEM-KM Fakultas Teknologi Pertanian</strong> (2024-2025)
+          </p>
+          <p>
+            Anggota BEM yang terlibat dalam perencanaan dan pelaksanaan kegiatan
+            kampus.
+          </p>
+
+          <p>
+            <strong>Kepanitiaan Perayaan Hari Anak Nasional</strong> (Setiap
+            tanggal 23 Juli, dari tahun 2021-2024)
+          </p>
+          <p>
+            Menjadi panitia dan bertanggung jawab dalam menyelenggarakan
+            perayaan dan kegiatan untuk anak-anak setiap tahunnya.
+          </p>
+        </div>
+
+        <div id="welcomeModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="color: #a40505">Selamat Datang!</h2>
+            <p>
+              Terima kasih sudah mengunjungi portfolio saya. Semoga Anda
+              menyukai karya-karya saya.
+            </p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Portfolio</h2>
+          <p>
+            Gambar-gambar berikut merupakan dokumentasi dari acara Duta Sekolah
+            SMAN 7 Kota Padang.
+          </p>
+          <div class="portfolio-grid">
+            <img
+              class="zoomable-image"
+              src="1.jpg"
+              alt="Portfolio Image 1"
+              onclick="openModal('1.jpg')"
+            />
+            <img
+              class="zoomable-image"
+              src="2.jpg"
+              alt="Portfolio Image 2"
+              onclick="openModal('2.jpg')"
+            />
+            <img
+              class="zoomable-image"
+              src="3.jpg"
+              alt="Portfolio Image 3"
+              onclick="openModal('3.jpg')"
+            />
+            <img
+              class="zoomable-image"
+              src="4.jpeg"
+              alt="Portfolio Image 4"
+              onclick="openModal('4.jpeg')"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="welcomeModal" class="modal">
+      <div class="modal-content">
+        <h2>Selamat Datang!</h2>
+        <p>
+          Terima kasih sudah mengunjungi portfolio saya. Semoga Anda menyukai
+          karya-karya saya.
+        </p>
+        <button class="close-btn" onclick="closeModal()">Tutup</button>
+      </div>
+    </div>
+
+    <div class="modal" id="imageModal">
+      <div class="modal-content">
+        <h2>Image Zoom</h2>
+        <img
+          id="modalImage"
+          src=""
+          alt="Zoomed Image"
+          style="max-width: 100%; height: auto"
+        />
+        <button class="close-btn" id="closeModal">Tutup</button>
+      </div>
+    </div>
+
+    <script>
+      // Show the modal after 1 second of page load
+      window.onload = function () {
+        setTimeout(function () {
+          document.getElementById("welcomeModal").style.display = "flex";
+        }, 1000); // Delay 1 second
+      };
+
+      // Close the welcome modal when the close button is clicked
+      function closeWelcomeModal() {
+        document.getElementById("welcomeModal").style.display = "none";
+      }
+
+      // Close the welcome modal if clicked outside of the content
+      document.getElementById("welcomeModal").onclick = function (event) {
+        if (event.target === this) {
+          closeWelcomeModal();
+        }
+      };
+
+      // Function to open the image modal and handle zoom in/out
+      function openModal(imageSrc) {
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+
+        // Set the image source to the clicked image
+        modalImage.src = imageSrc;
+
+        // Show the modal
+        modal.style.display = "flex";
+
+        // Add the zoom effect to the image (initial zoom)
+        modalImage.style.transform = "scale(1)";
+        modalImage.style.transition = "transform 0.3s ease";
+
+        // Attach a click event to the image for zoom in/out
+        modalImage.onclick = function () {
+          // If the image is at normal size (scale 1), zoom in
+          if (modalImage.style.transform === "scale(1)") {
+            modalImage.style.transform = "scale(1.1)"; // Zoom in
+          } else {
+            modalImage.style.transform = "scale(1)"; // Zoom out
+          }
+        };
+
+        // Close the modal if clicked outside of the image or modal itself
+        modal.onclick = function (event) {
+          if (event.target === modal || event.target === modalImage) {
+            modal.style.display = "none"; // Close the modal
+          }
+        };
+      }
+
+      // Close the image modal when the close button is clicked
+      const closeImageModal = document.getElementById("closeModal");
+      closeImageModal.onclick = function () {
+        const modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+      };
+    </script>
+  </body>
+</html>
